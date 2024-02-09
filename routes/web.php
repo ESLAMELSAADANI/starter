@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\UserController;
 use App\Http\Controllers\Admin\SecondController;
 use App\Http\Controllers\Admin\ThirdController;
+use App\Http\Controllers\CrudController;
 use App\Http\Controllers\NewsController;
 use Illuminate\Support\Facades\Auth;
 
@@ -222,4 +223,16 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return 'dashboard';
+});
+
+Route::get('fillable', [CrudController::class, 'getOffers']);
+
+
+Route::get('specificfillable', [CrudController::class, 'getSpecificOffer']);
+
+Route::group(['prefix' => 'offers'], function () {
+    Route::get('store', [CrudController::class, 'store']);
+    Route::get('form', [CrudController::class, 'form']);
+
+    Route::post('store2', [CrudController::class, 'store2'])->name('offers.store2');
 });
